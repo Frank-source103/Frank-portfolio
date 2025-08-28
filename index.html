@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Portfolio | Developer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles & Variables */
+        :root {
+            --neon-pink: #ff2d95;
+            --neon-blue: #0ff0fc;
+            --neon-purple: #8a2be2;
+            --neon-green: #39ff14;
+            --dark-bg: #0a0a10;
+            --darker-bg: #050508;
+            --text-color: #ffffff;
+            --section-spacing: 80px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 45, 149, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 60%, rgba(15, 240, 252, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 50% 80%, rgba(57, 255, 20, 0.05) 0%, transparent 20%);
+        }
+
+        /* Neon Text & Elements */
+        .neon-text {
+            text-shadow: 
+                0 0 5px currentColor,
+                0 0 10px currentColor,
+                0 0 20px currentColor,
+                0 0 40px currentColor;
+        }
+
+        .neon-pink { color: var(--neon-pink); }
+        .neon-blue { color: var(--neon-blue); }
+        .neon-purple { color: var(--neon-purple); }
+        .neon-green { color: var(--neon-green); }
+
+        .neon-border {
+            border: 2px solid;
+            box-shadow: 
+                0 0 5px currentColor,
+                0 0 10px currentColor,
+                inset 0 0 5px currentColor,
+                inset 0 0 10px currentColor;
+        }
+
+        /* Layout & Sections */
+        section {
+            padding: var(--section-spacing) 5%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 5%;
+            backdrop-filter: blur(8px);
+            background-color: rgba(10, 10, 16, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+        }
+
+        header.scrolled {
+            padding: 15px 5%;
+            background-color: rgba(5, 5, 8, 0.95);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--neon-pink);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 40px;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--neon-blue);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--neon-blue);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-btn {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        /* Hero Section */
+        #hero {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .hero-text {
+            flex: 1;
+            animation: fadeIn 1s ease;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 500px;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            border-radius: 50%;
+            border: 3px solid var(--neon-blue);
+            box-shadow: 
+                0 0 20px var(--neon-blue),
+                0 0 40px var(--neon-blue),
+                0 0 60px var(--neon-blue);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: transparent;
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            margin-right: 15px;
+            margin-top: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-pink {
+            color: var(--neon-pink);
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 10px var(--neon-pink);
+        }
+
+        .btn-pink:hover {
+            background-color: var(--neon-pink);
+            color: var(--dark-bg);
+            box-shadow: 0 0 20px var(--neon-pink);
+        }
+
+        .btn-blue {
+            color: var(--neon-blue);
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .btn-blue:hover {
+            background-color: var(--neon-blue);
+            color: var(--dark-bg);
+            box-shadow: 0 0 20px var(--neon-blue);
+        }
+
+        /* About Section */
+        #about {
+            background-color: var(--darker-bg);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .skills {
+            flex: 1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .skill {
+            padding: 10px 20px;
+            background-color: rgba(15, 240, 252, 0.1);
+            border: 1px solid var(--neon-blue);
+            border-radius: 20px;
+            color: var(--neon-blue);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .skill:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 15px var(--neon-blue);
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .project-card {
+            background: linear-gradient(145deg, #0c0c17, #070711);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 1px solid transparent;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-purple);
+            box-shadow: 0 0 25px var(--neon-purple);
+        }
+
+        .project-img {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #ff2d95, #8a2be2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .project-info {
+            padding: 20px;
+        }
+
+        .project-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--neon-green);
+        }
+
+        .project-info p {
+            margin-bottom: 15px;
+            color: #ccc;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .project-tag {
+            font-size: 0.8rem;
+            padding: 5px 10px;
+            background-color: rgba(57, 255, 20, 0.1);
+            border-radius: 15px;
+            color: var(--neon-green);
+        }
+
+        .project-link {
+            color: var(--neon-pink);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            gap: 10px;
+            text-shadow: 0 0 10px var(--neon-pink);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-content,
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.8rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: var(--darker-bg);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 40px;
+                transition: all 0.5s ease;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin-left: 0;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.3rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            section {
+                padding: 60px 5%;
+            }
+            
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+            
+            .btn {
+                display: block;
+                width: 100%;
+                text-align: center;
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header id="header">
+        <nav>
+            <a href="#" class="logo neon-text neon-pink">NEON.DEV</a>
+            <ul class="nav-links">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+            </ul>
+            <div class="menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1>Hi, I'm <span class="neon-text neon-blue">Alex</span></h1>
+                <p>A passionate frontend developer creating immersive digital experiences with a neon glow.</p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-pink">View Work</a>
+                    <a href="#about" class="btn btn-blue">About Me</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://i.pravatar.cc/250" alt="Profile Image">
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title neon-text neon-purple">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>I'm a frontend developer with a passion for creating visually stunning and highly interactive web experiences. With over 5 years in the industry, I've developed a keen eye for design and a strong focus on user experience.</p>
+                    <p>My expertise includes HTML, CSS, JavaScript, and modern frameworks like React and Vue. I love pushing the boundaries of what's possible on the web, especially with creative animations and unique visual themes.</p>
+                    <p>When I'm not coding, you can find me exploring new technologies, playing video games, or experimenting with digital art.</p>
+                </div>
+                <div class="skills">
+                    <span class="skill">HTML</span>
+                    <span class="skill">CSS</span>
+                    <span class="skill">JavaScript</span>
+                    <span class="skill">React</span>
+                    <span class="skill">Vue.js</span>
+                    <span class="skill">GSAP</span>
+                    <span class="skill">UI/UX Design</span>
+                    <span class="skill">Responsive Design</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title neon-text neon-green">My Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-img">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <div class="project-info">
+                        <h3>Neon Game Dashboard</h3>
+                        <p>A gaming dashboard with neon visuals and real-time stats tracking.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">React</span>
+                            <span class="project-tag">CSS</span>
+                            <span class="project-tag">WebSockets</span>
+                        </div>
+                        <a href="#" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-img">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <div class="project-info">
+                        <h3>SynthWave Player</h3>
+                        <p>A retro-inspired music player with visualizers and neon themes.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">JavaScript</span>
+                            <span class="project-tag">Web Audio API</span>
+                            <span class="project-tag">CSS</span>
+                        </div>
+                        <a href="#" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-img">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="project-info">
+                        <h3>CyberShop E-Commerce</h3>
+                        <p>A futuristic e-commerce platform with immersive product visualization.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Vue.js</span>
+                            <span class="project-tag">Firebase</span>
+                            <span class="project-tag">SCSS</span>
+                        </div>
+                        <a href="#" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // DOM Elements
+        const header = document.getElementById('header');
+        const menuBtn = document.querySelector('.menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        const projectCards = document.querySelectorAll('.project-card');
+        const skills = document.querySelectorAll('.skill');
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        menuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuBtn.querySelector('i').classList.toggle('fa-bars');
+            menuBtn.querySelector('i').classList.toggle('fa-times');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                menuBtn.querySelector('i').classList.add('fa-bars');
+                menuBtn.querySelector('i').classList.remove('fa-times');
+            });
+        });
+
+        // Project card animation on scroll
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = `fadeIn 0.8s ease forwards`;
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe project cards and skills
+        projectCards.forEach(card => {
+            card.style.opacity = '0';
+            observer.observe(card);
+        });
+
+        skills.forEach(skill => {
+            skill.style.opacity = '0';
+            observer.observe(skill);
+        });
+
+        // Add pulse animation to neon elements randomly
+        function addPulseAnimation() {
+            const neonElements = document.querySelectorAll('.neon-text');
+            neonElements.forEach(el => {
+                if (Math.random() > 0.7) {
+                    el.style.animation = `pulse ${2 + Math.random() * 2}s infinite`;
+                }
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            addPulseAnimation();
+            
+            // Animate hero text
+            const heroText = document.querySelector('.hero-text');
+            heroText.style.animation = 'fadeIn 1.2s ease forwards';
+            
+            // Animate hero image with a delay
+            const heroImage = document.querySelector('.hero-image');
+            setTimeout(() => {
+                heroImage.style.animation = 'fadeIn 1.2s ease forwards';
+            }, 300);
+        });
+    </script>
+</body>
+</html>
